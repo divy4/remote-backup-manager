@@ -4,6 +4,8 @@ import (
 	"path/filepath"
 	"log"
 	"os"
+
+	"github.com/divy4/remote-backup-manager/config"
 )
 
 type Tree struct {
@@ -18,16 +20,10 @@ type Tree struct {
 }
 
 // Create a new Tree at a given path.
-func NewTree(path string) *Tree {
-	// Ensure the path exists
-	absPath, err := filepath.Abs(path)
-	if err != nil {
-		log.Fatal(err)
-	}
-
+func NewTree() *Tree {
 	// Create the base tree object
 	tree := Tree{
-		RootPath: absPath,
+		RootPath: config.Config.LocalBackupPath,
 		RootNode: nil,
 		Nodes: make(map[string]*Node),
 	}
